@@ -30,14 +30,18 @@ these entries are clearly marked as auto-researched and kept separate from the h
 
 ### setting it up
 
-add your anthropic api key as a repo secret named `ANTHROPIC_API_KEY` (settings → secrets and variables → actions). that's the only setup step.
+add your openrouter key as a repo secret named `OPENROUTER_API_KEY` (settings → secrets and variables → actions).
+
+optionally add a repo *variable* named `OPENROUTER_MODEL` to pick the model. it defaults to `anthropic/claude-sonnet-4.5`. any slug from [openrouter.ai/models](https://openrouter.ai/models) works — pick a cheaper one if you want, the script will tell you if the slug is wrong.
 
 run it yourself any time:
 
 ```bash
-npm run discover          # real run, needs ANTHROPIC_API_KEY set
+OPENROUTER_API_KEY=sk-or-... npm run discover
 npm run discover:dry      # sample data, no api calls, for testing the layout
 ```
+
+the script talks to openrouter over plain `fetch` with openrouter's web search plugin, so it adds no dependencies to the project.
 
 the action also runs on demand from the actions tab. findings land in `content/finds.json` as a normal commit, so every update is a diff you can read and revert. note that github disables scheduled workflows on repos with no activity for 60 days.
 
