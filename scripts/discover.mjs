@@ -40,7 +40,11 @@ const SCHEMA = {
           headline: { type: "string", description: "What changed, under 15 words, no hype" },
           platform: { type: "string", description: "e.g. YouTube Shorts, X, Instagram Reels, TikTok, LinkedIn" },
           lane: { type: "string", enum: ["Receipts", "Clips", "Build", "Platform"] },
-          stat: { type: "string", description: "The single hard number that proves this. Empty string if there genuinely is none." },
+          stat: {
+            type: "string",
+            description:
+              "A short self-contained phrase the reader understands without clicking, naming what moved and its units. Good: 'dwell weight went 0.0 to 0.05'. Good: '33% fewer median likes'. Bad: '0.05'. Bad: '1.0'. Never a bare number with no label. Empty string only if there is genuinely no number.",
+          },
           statContext: { type: "string", description: "What the number measures, over what sample, in one clause" },
           obvious: {
             type: "string",
@@ -77,10 +81,14 @@ Today is ${today}. Find what has genuinely CHANGED or been newly MEASURED in the
 
 Hard rules:
 - Only report things you can point to a real, live URL for. Never invent a statistic or a link.
-- Prefer primary sources: the platform's own blog, help pages, engineering posts, or a named researcher's published dataset.
-- Ignore generic "10 tips to grow" content farms entirely.
-- A rumour or single creator's anecdote is allowed, but mark trust as 1 and say so plainly in "why".
+- Link the PRIMARY source, not the blog that summarised it. If a post describes a change to X's open-source ranking code, link the repository, commit or file. If it describes a YouTube change, link YouTube's own blog or help page. Chase the citation to its origin before you settle for the aggregator.
+- Drop the finding entirely if the only thing backing it is an SEO roundup, a "platform algorithm index", a "best time to post" page, or a marketing blog republishing someone else's numbers. A weak source is worse than no finding.
 - For every item answer three things explicitly: the number, whether this was already obvious, and the mechanism behind it.
+
+Trust ratings are strict. Be conservative and rate down when unsure:
+- 3 ONLY if the URL is on the platform's own domain (its blog, help centre, engineering site, or official repo), or is a named researcher's published dataset with its method stated. A third party describing an official change is NOT a 3.
+- 2 if it is a large dataset published by a company that sells a related tool, with the sample size disclosed.
+- 1 for everything else: rough benchmarks, undisclosed samples, single-creator numbers, second-hand reporting. Say plainly in "why" that the source is thin.
 
 Already covered. Do not repeat these or a lightly reworded version of them:
 ${seen || "- (nothing yet)"}
