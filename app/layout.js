@@ -4,10 +4,6 @@ export const metadata = {
   title: "Stop the Thumb: the hook, Shorts and going-viral playbook",
   description:
     "A long, visual playbook for Losh: the Receipt Hook, an all-in Shorts system, and how to grow on YouTube, X and LinkedIn, then upsell yourself.",
-  icons: {
-    icon:
-      "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>%F0%9F%91%8D</text></svg>",
-  },
 };
 
 export const viewport = {
