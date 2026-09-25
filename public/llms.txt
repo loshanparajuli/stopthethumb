@@ -1,0 +1,29 @@
+# Stop the Thumb
+
+> A long, visual playbook on winning the first second of a short-form video, written for Losh at fromSilicon. It covers the Receipt Hook, an all-in Shorts system, and how to turn views into clients on YouTube, X and LinkedIn. Every claim names its source and flags how much to trust it.
+
+The guide argues that a Short gets roughly one second before a thumb decides whether it lives, and that the skill worth building is not "going viral" but running a fast hook-testing loop. It is interactive: a hook slot machine, a swipe-or-stay quiz, a hook scorecard and a 30-day checklist.
+
+## Chapters
+
+- [The truth](/#truth): why nobody goes viral on command, what Shorts actually pay, and why Shorts and long-form are separate engines
+- [The machine](/#machine): how Shorts get tested on small audiences first, and the four numbers that read a Short's report card
+- [The hook](/#hook): the Receipt Hook — show the proof, say a line people would bet against, crack it open by second three
+- [The data](/#data): what 3,997 tagged TikTok and Reels videos say about emotion, opening style, format and calls to action
+- [Length](/#length): where the studies disagree on how long a Short should run, and how to decide
+- [The body](/#body): the beat map after the hook, and the loop trick that earns a second watch
+- [Hook bank](/#bank): 12 reusable hook patterns with templates and examples
+- [Kill list](/#kill): the openers that die in the first second
+- [Quiz](/#quiz): ten openers, swipe or stay
+- [The system](/#system): three content lanes, a weekly posting rhythm, and a hook log
+- [10 hooks](/#ready): hooks ready to film
+- [Score it](/#score): a weighted scorecard to run before filming
+- [YouTube](/#youtube), [X](/#x), [LinkedIn](/#linkedin): the long-form and platform-specific playbooks
+- [30 days](/#sprint): a sprint checklist
+- [Sources](/#sources): every study and platform statement cited
+
+## Notes
+
+- [Fresh finds](/#finds): an auto-researched feed of recent platform and algorithm changes, refreshed on a schedule. These entries are machine-researched and labelled as such — the source link on each card is the receipt. The hand-written chapters above were checked by a person; the fresh finds were not.
+- Charts marked "illustration" use made-up numbers to show a shape, not real data.
+- The Thumb is an original mascot drawn in SVG.

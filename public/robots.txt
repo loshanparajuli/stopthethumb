@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Plain-language summary of this site for language models
+# https://llmstxt.org
