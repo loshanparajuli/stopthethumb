@@ -1,1 +1,86 @@
-[]
+[
+  {
+    "id": "x-raised-video-open-weight-and-turned-on-binary-dwell-while-",
+    "discovered": "2026-09-25",
+    "headline": "X raised video-open weight and turned on binary dwell while killing quality-view finish bonus",
+    "platform": "X",
+    "lane": "Platform",
+    "stat": "video_open weight went 0.05 to 0.07, dwell went 0.0 to 0.05, vqv went 0.05 to 0.0",
+    "statContext": "Three of twenty-six ranking weights in X's open-source algorithm, changed August 25, 2026",
+    "obvious": "surprising",
+    "why": "X stopped rewarding finish rates and started rewarding the open itself plus binary dwell (whether you stayed at all, not how long). The video_open head is the only weight X has raised from a nonzero value in the published history since August 13. The mechanism appears to be a shift from completion-based signals to attention-holding signals: you now get paid for the open and for keeping someone on the post, but not for them reaching a quality-view threshold. This contradicts the common advice to optimize for finish rate on X video.",
+    "move": "For X video, optimize the first three seconds to prevent an immediate swipe-away rather than building to a payoff that rewards completion. The dwell head now pays what the finish bonus used to pay.",
+    "sources": [
+      {
+        "title": "Ryan Lenk",
+        "url": "https://www.ryanlenk.com/blogs/articles/x-changed-three-ranking-weights"
+      },
+      {
+        "title": "xai-org/x-algorithm commit",
+        "url": "https://github.com/xai-org/x-algorithm"
+      }
+    ],
+    "trust": 3
+  },
+  {
+    "id": "off-platform-links-in-x-posts-showed-33-fewer-median-likes-i",
+    "discovered": "2026-09-25",
+    "headline": "Off-platform links in X posts showed 33% fewer median likes in 21,864-post sample",
+    "platform": "X",
+    "lane": "Receipts",
+    "stat": "33% fewer median likes",
+    "statContext": "2,626 posts with genuine off-platform links versus posts without them, from 7,829 accounts over 236 days, relevance-ranked sample",
+    "obvious": "semi",
+    "why": "The headline number appears in a researcher-audited observational study that corrected for a methodological error: searching post text for 'http' showed a positive association, but filtering for genuine off-platform destination hosts showed negative. The study itself does not claim this proves an algorithmic penalty—linked posts may differ in intent, topic, format, author, and audience. X's For You feed uses many personalized signals, not a single public link multiplier. The mechanism is likely selection bias: people write different kinds of posts when they include links, and those posts attra",
+    "move": "Test links in your own account rather than treating this as a universal rule. The same study found linked posts got fewer views but more bookmarks, which suggests they serve a reference function rather than a reach function.",
+    "sources": [
+      {
+        "title": "Promptslove research",
+        "url": "https://promptslove.com/blog/studied-viral-x-tweets-research/"
+      }
+    ],
+    "trust": 1
+  },
+  {
+    "id": "replies-and-retweets-outweigh-likes-roughly-2-to-1-in-x-s-op",
+    "discovered": "2026-09-25",
+    "headline": "Replies and retweets outweigh likes roughly 2-to-1 in X's open-source ranking weights",
+    "platform": "X",
+    "lane": "Platform",
+    "stat": "retweet weighted 1.0, like weighted 0.5",
+    "statContext": "Weights from X's 2023 open-sourced ranking code, widely cited across third-party analyses",
+    "obvious": "semi",
+    "why": "X open-sourced its For You ranking code in 2023 and the relative weights have been public since then, so this is not new. The mechanism is that X's algorithm treats engagement types as predictions of future engagement: a retweet exposes the post to a new network, so it signals broader appeal. A like is private feedback. The code also shows negative actions (blocks, reports, mutes) carry weights several times larger than positive ones in the opposite direction, which means suppression is faster than amplification.",
+    "move": "Optimize posts for replies and retweets, not just likes. Ask a question, make a claim people want to argue with, or write something people want to add to. A single retweet is worth roughly two likes in the ranking system.",
+    "sources": [
+      {
+        "title": "X open-source algorithm",
+        "url": "https://github.com/xai-org/x-algorithm"
+      },
+      {
+        "title": "Kompozy platform index",
+        "url": "https://kompozy.io/research/platform-algorithm-index"
+      }
+    ],
+    "trust": 3
+  },
+  {
+    "id": "linkedin-posts-with-61-seconds-dwell-hit-15-6-engagement-ver",
+    "discovered": "2026-09-25",
+    "headline": "LinkedIn posts with 61+ seconds dwell hit 15.6% engagement versus 1.2% for 0-3 seconds",
+    "platform": "LinkedIn",
+    "lane": "Receipts",
+    "stat": "15.6% engagement rate at 61+ seconds dwell versus 1.2% at 0-3 seconds",
+    "statContext": "AuthoredUp dataset, sample size not disclosed, LinkedIn officially documents dwell time as a top signal",
+    "obvious": "known",
+    "why": "LinkedIn officially names dwell time as the one feed signal it documents in depth, and this third-party dataset quantifies the relationship. The mechanism is that LinkedIn's three-stage ranking flow (spam filter, small-sample engagement test, network-relevance ranking) uses dwell as a proxy for content quality: if someone stops scrolling to read, the system infers the post is worth showing to more people in that person's network. Thoughtful comments amplify this further. The pattern was already widely known among LinkedIn creators.",
+    "move": "Write posts that earn long dwell time: open with a hook that makes someone stop scrolling, then deliver enough substance that they stay for a minute. Use line breaks and short paragraphs so the post looks readable at a glance.",
+    "sources": [
+      {
+        "title": "Kompozy platform index",
+        "url": "https://kompozy.io/research/platform-algorithm-index"
+      }
+    ],
+    "trust": 2
+  }
+]
