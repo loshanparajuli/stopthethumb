@@ -280,9 +280,11 @@ export default function InteractiveScript() {
         return [cx + rr * Math.cos(a), cy + rr * Math.sin(a)];
       }
       function arc(v0, v1, cls, op) {
+        // The whole gauge is a half circle, so 100 points span 180 degrees and
+        // no segment can ever be the large arc.
         var p0 = pt(v0, r),
           p1 = pt(v1, r),
-          large = v1 - v0 > 50 ? 1 : 0;
+          large = 0;
         return (
           '<path d="M' +
           p0[0].toFixed(1) +
