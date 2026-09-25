@@ -1,0 +1,46 @@
+name: discover fresh finds
+
+on:
+  schedule:
+    # 06:15 UTC daily
+    - cron: "15 6 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: discover
+  cancel-in-progress: false
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: look for new findings
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: npm run discover
+
+      - name: check the site still builds
+        run: npm run build
+
+      - name: commit anything new
+        run: |
+          if git diff --quiet -- content/finds.json; then
+            echo "no new findings"
+            exit 0
+          fi
+          git config user.name "fresh finds bot"
+          git config user.email "actions@github.com"
+          git add content/finds.json
+          git commit -m "new findings for $(date -u +%Y-%m-%d)"
+          git push

@@ -403,3 +403,21 @@ footer{padding:40px 0 60px;border-top:1px solid var(--line);margin-top:30px}
 .svgd{font-family:var(--f-display);font-weight:800;fill:var(--ink)}
 
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* fresh finds */
+.live-badge{display:inline-block;font:800 .72em/1 var(--f-body);background:var(--swipe);color:var(--on-swipe);padding:.45em .6em;border-radius:999px;vertical-align:middle;margin-right:.5em;letter-spacing:.02em}
+.finds{display:grid;gap:16px;margin:22px 0}
+@media(min-width:860px){.finds{grid-template-columns:1fr 1fr}}
+.find{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px;display:grid;gap:10px;align-content:start}
+.find-head{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.find-when{font:700 .76rem var(--f-mono);color:var(--ink-2);background:var(--sunk);padding:4px 8px;border-radius:999px;white-space:nowrap}
+.find-title{font-size:1.18rem;font-weight:750;margin:0;line-height:1.25}
+.find-stat{border-left:5px solid var(--accent);background:var(--accent-soft);border-radius:0 10px 10px 0;padding:10px 12px;display:grid;gap:2px}
+.find-stat b{font:800 1.12rem/1.2 var(--f-display)}
+.find-stat span{font-size:.86rem;color:var(--ink-2)}
+.find-line{margin:0;font-size:.94rem;line-height:1.5}
+.find-line b{font:800 .74rem/1 var(--f-body);text-transform:uppercase;letter-spacing:.04em;color:var(--ink-2);display:block;margin-bottom:3px}
+.find-foot{display:flex;flex-wrap:wrap;gap:8px;align-items:center;border-top:1px dashed var(--line);padding-top:10px;margin-top:2px}
+.find-src{font-size:.82rem;color:var(--ink-2);overflow-wrap:anywhere}
+.find-src a{color:var(--accent)}
+.find-when.find-new{background:var(--stay-soft);color:var(--stay);font-weight:800}

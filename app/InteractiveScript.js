@@ -717,6 +717,33 @@ export default function InteractiveScript() {
       });
     }
 
+    /* Fresh finds: absolute dates become "N days ago" for the first 10 days */
+    function freshness() {
+      var RELATIVE_DAYS = 10;
+      var startOfToday = new Date();
+      startOfToday.setHours(0, 0, 0, 0);
+
+      each(document.querySelectorAll(".find-when[data-when]"), function (el) {
+        var parts = el.getAttribute("data-when").split("-");
+        var found = new Date(+parts[0], +parts[1] - 1, +parts[2]);
+        if (isNaN(found.getTime())) return;
+
+        var days = Math.round((startOfToday - found) / 86400000);
+        if (days < 0 || days > RELATIVE_DAYS) return;
+
+        var label =
+          days === 0
+            ? "today"
+            : days === 1
+            ? "yesterday"
+            : days + " days ago";
+
+        var time = el.querySelector("time");
+        if (time) time.textContent = label;
+        if (days <= 2) el.classList.add("find-new");
+      });
+    }
+
     function safe(fn) {
       try {
         fn();
@@ -735,6 +762,7 @@ export default function InteractiveScript() {
     safe(scorecard);
     safe(sprint);
     safe(copies);
+    safe(freshness);
   }, []);
 
   return null;

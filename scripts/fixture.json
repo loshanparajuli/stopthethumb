@@ -1,0 +1,30 @@
+[
+  {
+    "headline": "SAMPLE ENTRY - X publishes its ranking code, so the weights stop being guesswork",
+    "platform": "X",
+    "lane": "Platform",
+    "stat": "Sample data, not a real measurement",
+    "statContext": "placeholder used to preview how a finding renders",
+    "obvious": "surprising",
+    "why": "This is sample data used by npm run discover:dry to test the rendering pipeline without calling the API. Real entries are written by the scheduled research job and carry real numbers and real sources. If you are seeing this on the live site, the fixture was committed by mistake.",
+    "move": "Run the discovery job with a real ANTHROPIC_API_KEY to replace this with genuine findings.",
+    "trust": 1,
+    "sources": [
+      { "title": "the-algorithm on GitHub", "url": "https://github.com/twitter/the-algorithm" }
+    ]
+  },
+  {
+    "headline": "SAMPLE ENTRY - Shorts retention benchmark moves for sub-30-second clips",
+    "platform": "YouTube Shorts",
+    "lane": "Receipts",
+    "stat": "Sample data, not a real measurement",
+    "statContext": "placeholder used to preview a second card in the feed",
+    "obvious": "semi",
+    "why": "Second piece of sample data, here only so the fresh-finds grid can be checked with more than one card in it. It carries a deliberately low trust rating and an obviously fake headline so it cannot be mistaken for a researched finding.",
+    "move": "Nothing. This entry exists to test layout.",
+    "trust": 1,
+    "sources": [
+      { "title": "YouTube Official Blog", "url": "https://blog.youtube/" }
+    ]
+  }
+]
