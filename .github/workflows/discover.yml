@@ -2,8 +2,8 @@ name: discover fresh finds
 
 on:
   schedule:
-    # 06:15 UTC daily
-    - cron: "15 6 * * *"
+    # 06:15 UTC every Monday, matching the guide's own Monday research slot
+    - cron: "15 6 * * 1"
   workflow_dispatch:
 
 concurrency:

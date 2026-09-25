@@ -16,7 +16,7 @@ this is a next.js app version of the original claude artifact, live and interact
 
 ## fresh finds (the part that updates itself)
 
-there's a "fresh finds" section near the top that fills itself in. a github action runs once a day, asks claude to search the web for what actually changed across shorts, reels, tiktok, x and linkedin, and files each thing it finds with:
+there's a "fresh finds" section near the top that fills itself in. a github action runs every monday morning, asks a model to search the web for what actually changed across shorts, reels, tiktok, x and linkedin, and files each thing it finds with:
 
 - the number behind it
 - whether it was already obvious or nobody saw it coming
