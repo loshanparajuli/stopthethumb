@@ -1,66 +1,75 @@
 import fs from "node:fs";
 import path from "node:path";
-import Anthropic from "@anthropic-ai/sdk";
-import { z } from "zod";
-import { zodOutputFormat } from "@anthropic-ai/sdk/helpers/zod";
 import { sanitizeFind, slugify } from "../lib/finds.js";
 
-const MODEL = "claude-opus-5";
+const ENDPOINT = "https://openrouter.ai/api/v1/chat/completions";
+const MODEL = process.env.OPENROUTER_MODEL || "anthropic/claude-sonnet-4.5";
 const FINDS_PATH = path.join(process.cwd(), "content", "finds.json");
 const MAX_STORED = 60;
 const MAX_PER_RUN = 4;
 
-const args = new Set(process.argv.slice(2));
-const dryRun = args.has("--dry-run");
-
+const dryRun = process.argv.includes("--dry-run");
 const today = new Date().toISOString().slice(0, 10);
 
-const FindSchema = z.object({
-  headline: z
-    .string()
-    .describe("What changed, in one sentence under 15 words. No hype."),
-  platform: z
-    .string()
-    .describe("The platform this concerns, e.g. 'YouTube Shorts', 'X', 'Instagram Reels', 'TikTok', 'LinkedIn'."),
-  lane: z
-    .enum(["Receipts", "Clips", "Build", "Platform"])
-    .describe("Which of Losh's three content lanes this feeds, or 'Platform' for an algorithm or product change."),
-  stat: z
-    .string()
-    .describe("The single hard number that proves this, e.g. '10x weight on bookmarks'. Empty string if there genuinely is no number."),
-  statContext: z
-    .string()
-    .describe("What the number is measuring and over what sample, in one short clause."),
-  obvious: z
-    .enum(["surprising", "semi", "known"])
-    .describe("Was this already obvious to a working creator? 'surprising' means it contradicts common advice."),
-  why: z
-    .string()
-    .describe("The mechanism: why the platform did this, or why the pattern works. Two or three sentences. This is the most important field."),
-  move: z
-    .string()
-    .describe("What Losh should concretely do about it this week, in one or two sentences."),
-  trust: z
-    .number()
-    .int()
-    .min(1)
-    .max(3)
-    .describe("3 = the platform said it officially or the dataset is large and careful. 2 = a big dataset from a company that sells a tool. 1 = a rough benchmark or a single creator's numbers."),
-  sources: z
-    .array(z.object({ title: z.string(), url: z.string() }))
-    .min(1)
-    .describe("Where this came from. Real URLs only, never invented ones."),
-});
+const SOURCE_SCHEMA = {
+  type: "object",
+  additionalProperties: false,
+  required: ["title", "url"],
+  properties: {
+    title: { type: "string", description: "Short name of the publication" },
+    url: { type: "string", description: "A real, live URL. Never invent one." },
+  },
+};
 
-const ResultSchema = z.object({
-  finds: z.array(FindSchema),
-});
+const SCHEMA = {
+  type: "object",
+  additionalProperties: false,
+  required: ["finds"],
+  properties: {
+    finds: {
+      type: "array",
+      description: `At most ${MAX_PER_RUN} findings. Return an empty array rather than padding.`,
+      items: {
+        type: "object",
+        additionalProperties: false,
+        required: [
+          "headline", "platform", "lane", "stat", "statContext",
+          "obvious", "why", "move", "trust", "sources",
+        ],
+        properties: {
+          headline: { type: "string", description: "What changed, under 15 words, no hype" },
+          platform: { type: "string", description: "e.g. YouTube Shorts, X, Instagram Reels, TikTok, LinkedIn" },
+          lane: { type: "string", enum: ["Receipts", "Clips", "Build", "Platform"] },
+          stat: { type: "string", description: "The single hard number that proves this. Empty string if there genuinely is none." },
+          statContext: { type: "string", description: "What the number measures, over what sample, in one clause" },
+          obvious: {
+            type: "string",
+            enum: ["surprising", "semi", "known"],
+            description: "Was this already obvious to a working creator? 'surprising' contradicts common advice.",
+          },
+          why: { type: "string", description: "The mechanism: why the platform did this or why the pattern works. Two or three sentences. Most important field." },
+          move: { type: "string", description: "What to concretely do about it this week" },
+          trust: {
+            type: "integer",
+            minimum: 1,
+            maximum: 3,
+            description: "3 = the platform said it officially or the dataset is large and careful. 2 = a big dataset from a vendor. 1 = a rough benchmark or one creator's numbers.",
+          },
+          sources: { type: "array", items: SOURCE_SCHEMA },
+        },
+      },
+    },
+  },
+};
 
-const RESEARCH_BRIEF = `You are researching for "Stop the Thumb", a playbook about hooks and short-form video written for Losh, who runs fromSilicon (a studio making documentary-style videos about startups and VC for founder and investor clients) and is building autoBlade (an app that auto-edits multi-camera podcasts).
+function brief(existing) {
+  const seen = existing.slice(0, 25).map((f) => `- ${f.headline}`).join("\n");
 
-Find what has genuinely CHANGED or been newly MEASURED in the last two weeks across short-form video and social distribution. Prioritise, in this order:
+  return `You are researching for "Stop the Thumb", a playbook about hooks and short-form video written for Losh, who runs fromSilicon (documentary-style videos about startups and VC for founder and investor clients) and is building autoBlade (an app that auto-edits multi-camera podcasts).
 
-1. The X (Twitter) algorithm and its engagement statistics. This is the highest priority. X open-sourced its ranking code, and its weights and behaviour keep shifting. Find concrete numbers: what an action is worth relative to another, reach caps, how link posts are treated, what changed in the most recent update, and crucially WHY the change was made and whether anyone predicted it.
+Today is ${today}. Find what has genuinely CHANGED or been newly MEASURED in the last two weeks across short-form video and social distribution. Priority order:
+
+1. The X (Twitter) algorithm and its engagement statistics. Highest priority. X open-sourced its ranking code and its weights keep shifting. Find concrete numbers: what one action is worth relative to another, reach caps, how link posts are treated, what the most recent update changed, and crucially WHY it was changed and whether anyone predicted it.
 2. YouTube Shorts ranking, monetisation and measurement changes.
 3. Instagram Reels and TikTok ranking or product changes that affect reach.
 4. New public datasets or studies measuring hooks, retention, posting cadence or watch time.
@@ -70,8 +79,14 @@ Hard rules:
 - Only report things you can point to a real, live URL for. Never invent a statistic or a link.
 - Prefer primary sources: the platform's own blog, help pages, engineering posts, or a named researcher's published dataset.
 - Ignore generic "10 tips to grow" content farms entirely.
-- If something is a rumour or a single creator's anecdote, you may still report it, but mark its trust as 1 and say so plainly in the 'why'.
-- For every item, answer three things explicitly: what the number is, whether this was already obvious to a working creator, and the mechanism behind why it happened.`;
+- A rumour or single creator's anecdote is allowed, but mark trust as 1 and say so plainly in "why".
+- For every item answer three things explicitly: the number, whether this was already obvious, and the mechanism behind it.
+
+Already covered. Do not repeat these or a lightly reworded version of them:
+${seen || "- (nothing yet)"}
+
+Return at most ${MAX_PER_RUN} findings. If nothing genuinely new has happened, return an empty array rather than filling space.`;
+}
 
 function loadFinds() {
   if (!fs.existsSync(FINDS_PATH)) return [];
@@ -83,106 +98,72 @@ function loadFinds() {
   }
 }
 
-function writeFinds(finds) {
-  fs.mkdirSync(path.dirname(FINDS_PATH), { recursive: true });
-  fs.writeFileSync(FINDS_PATH, `${JSON.stringify(finds, null, 2)}\n`, "utf8");
+// Models don't always honour response_format, so pull the first JSON object out.
+function parseJson(raw) {
+  const text = String(raw ?? "").replace(/^```(?:json)?\s*|\s*```$/g, "").trim();
+  try {
+    return JSON.parse(text);
+  } catch {
+    const start = text.indexOf("{");
+    const end = text.lastIndexOf("}");
+    if (start === -1 || end <= start) return null;
+    try {
+      return JSON.parse(text.slice(start, end + 1));
+    } catch {
+      return null;
+    }
+  }
 }
 
-async function research(client, existing) {
-  const seen = existing
-    .slice(0, 25)
-    .map((find) => `- ${find.headline}`)
-    .join("\n");
-
-  const messages = [
-    {
-      role: "user",
-      content: `${RESEARCH_BRIEF}
-
-Today is ${today}.
-
-The guide already covers the items below. Do not report these again, and do not report a lightly reworded version of them. Find things that are genuinely new since these:
-${seen || "- (nothing yet)"}
-
-Search the web now, then write up at most ${MAX_PER_RUN} findings. Fewer is better than padded. If nothing genuinely new has happened, say so plainly and write up nothing rather than filling space.`,
+async function ask(existing) {
+  const response = await fetch(ENDPOINT, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+      "Content-Type": "application/json",
+      "X-Title": "Stop the Thumb",
     },
-  ];
-
-  let response = await client.messages.create({
-    model: MODEL,
-    max_tokens: 16000,
-    thinking: { type: "adaptive" },
-    output_config: { effort: "high" },
-    tools: [{ type: "web_search_20260209", name: "web_search", max_uses: 12 }],
-    messages,
-  });
-
-  // A server-tool turn can stop early with pause_turn; resume by handing the
-  // partial assistant turn back until it finishes on its own.
-  let guard = 0;
-  while (response.stop_reason === "pause_turn" && guard < 6) {
-    guard += 1;
-    messages.push({ role: "assistant", content: response.content });
-    response = await client.messages.create({
+    body: JSON.stringify({
       model: MODEL,
-      max_tokens: 16000,
-      thinking: { type: "adaptive" },
-      output_config: { effort: "high" },
-      tools: [{ type: "web_search_20260209", name: "web_search", max_uses: 12 }],
-      messages,
-    });
-  }
-
-  if (response.stop_reason === "refusal") {
-    throw new Error(
-      `Research call refused: ${response.stop_details?.category ?? "unknown"}`
-    );
-  }
-
-  return response.content
-    .filter((block) => block.type === "text")
-    .map((block) => block.text)
-    .join("\n")
-    .trim();
-}
-
-async function extract(client, notes) {
-  const response = await client.messages.parse({
-    model: MODEL,
-    max_tokens: 16000,
-    messages: [
-      {
-        role: "user",
-        content: `Here are research notes about recent changes in short-form video and social distribution.
-
-Turn them into structured findings. Keep only items that have a real source URL present in the notes. Do not invent a URL, a number, or a finding that is not in the notes. If the notes say nothing genuinely new was found, return an empty array.
-
-Notes:
-${notes}`,
+      plugins: [{ id: "web", max_results: 8 }],
+      response_format: {
+        type: "json_schema",
+        json_schema: { name: "finds", strict: true, schema: SCHEMA },
       },
-    ],
-    output_config: { format: zodOutputFormat(ResultSchema) },
+      messages: [{ role: "user", content: brief(existing) }],
+    }),
   });
 
-  return response.parsed_output?.finds ?? [];
+  if (!response.ok) {
+    const detail = await response.text();
+    if (response.status === 400 && /model/i.test(detail)) {
+      throw new Error(
+        `OpenRouter rejected the model "${MODEL}". Pick a slug from https://openrouter.ai/models and set OPENROUTER_MODEL.\n${detail}`
+      );
+    }
+    throw new Error(`OpenRouter ${response.status}: ${detail}`);
+  }
+
+  const payload = await response.json();
+  const parsed = parseJson(payload.choices?.[0]?.message?.content);
+  if (!parsed) throw new Error("Could not parse a JSON object from the reply.");
+  return Array.isArray(parsed.finds) ? parsed.finds : [];
 }
 
 function merge(existing, incoming) {
-  const seenIds = new Set(existing.map((find) => find.id));
-  const seenHeadlines = new Set(
-    existing.map((find) => slugify(find.headline).slice(0, 40))
-  );
-
+  const ids = new Set(existing.map((f) => f.id));
+  const headlines = new Set(existing.map((f) => slugify(f.headline).slice(0, 40)));
   const added = [];
-  for (const raw of incoming) {
+
+  for (const raw of incoming.slice(0, MAX_PER_RUN)) {
     const find = sanitizeFind({ ...raw, discovered: today }, today);
     if (!find) continue;
 
-    const headlineKey = slugify(find.headline).slice(0, 40);
-    if (seenIds.has(find.id) || seenHeadlines.has(headlineKey)) continue;
+    const key = slugify(find.headline).slice(0, 40);
+    if (ids.has(find.id) || headlines.has(key)) continue;
 
-    seenIds.add(find.id);
-    seenHeadlines.add(headlineKey);
+    ids.add(find.id);
+    headlines.add(key);
     added.push(find);
   }
 
@@ -191,43 +172,34 @@ function merge(existing, incoming) {
 
 async function main() {
   const existing = loadFinds();
-
   let incoming;
+
   if (dryRun) {
-    const fixturePath = path.join(process.cwd(), "scripts", "fixture.json");
-    incoming = JSON.parse(fs.readFileSync(fixturePath, "utf8"));
-    console.log(`dry run: loaded ${incoming.length} fixture findings`);
+    const fixture = path.join(process.cwd(), "scripts", "fixture.json");
+    incoming = JSON.parse(fs.readFileSync(fixture, "utf8"));
+    console.log(`dry run: ${incoming.length} fixture findings`);
   } else {
-    if (!process.env.ANTHROPIC_API_KEY) {
-      console.error("ANTHROPIC_API_KEY is not set. Nothing to do.");
+    if (!process.env.OPENROUTER_API_KEY) {
+      console.error("OPENROUTER_API_KEY is not set.");
       process.exit(1);
     }
-    const client = new Anthropic({ timeout: 15 * 60 * 1000 });
-
-    console.log("researching...");
-    const notes = await research(client, existing);
-    if (!notes) {
-      console.log("no research output. Leaving finds.json untouched.");
-      return;
-    }
-
-    console.log("extracting...");
-    incoming = await extract(client, notes);
+    console.log(`asking ${MODEL}...`);
+    incoming = await ask(existing);
   }
 
   const { merged, added } = merge(existing, incoming);
 
   if (!added.length) {
-    console.log("nothing new. Leaving finds.json untouched.");
+    console.log("nothing new. finds.json untouched.");
     return;
   }
 
-  writeFinds(merged);
-  console.log(`added ${added.length} finding(s):`);
+  fs.writeFileSync(FINDS_PATH, `${JSON.stringify(merged, null, 2)}\n`, "utf8");
+  console.log(`added ${added.length}:`);
   for (const find of added) console.log(`  - ${find.headline}`);
 }
 
 main().catch((error) => {
-  console.error(error);
+  console.error(error.message || error);
   process.exit(1);
 });
