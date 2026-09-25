@@ -1,6 +1,6 @@
 # Stop the Thumb
 
-> A long, visual playbook on winning the first second of a short-form video, written for Losh at fromSilicon. It covers the Receipt Hook, an all-in Shorts system, and how to turn views into clients on YouTube, X and LinkedIn. Every claim names its source and flags how much to trust it.
+> A long, visual playbook on winning the first second of a short-form video, written by Losh at fromSilicon. It covers the Receipt Hook, an all-in Shorts system, and how to turn views into clients on YouTube, X and LinkedIn. Every claim names its source and flags how much to trust it.
 
 The guide argues that a Short gets roughly one second before a thumb decides whether it lives, and that the skill worth building is not "going viral" but running a fast hook-testing loop. It is interactive: a hook slot machine, a swipe-or-stay quiz, a hook scorecard and a 30-day checklist.
 

@@ -1,6 +1,6 @@
 # stop the thumb
 
-a long, visual playbook on how to hook viewers on shorts before they swipe away. built for losh at fromsilicon.
+a long, visual playbook on how to hook viewers on shorts before they swipe away. built by losh at fromsilicon.
 
 this is a next.js app version of the original claude artifact, live and interactive.
 
