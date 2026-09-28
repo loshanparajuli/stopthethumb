@@ -1,5 +1,81 @@
 [
   {
+    "id": "x-s-ranker-now-rewards-ten-second-click-dwell-instead-of-pas",
+    "discovered": "2026-09-28",
+    "headline": "X's ranker now rewards ten-second click-dwell instead of passive impressions",
+    "platform": "X",
+    "lane": "Platform",
+    "stat": "click-dwell weight set to 1.0 in default config, binary trigger at 10 seconds",
+    "statContext": "X's Phoenix ranker configuration as of September 2026, affects how clicks on posts are scored",
+    "obvious": "surprising",
+    "why": "X added a click-dwell head that only fires positive if the viewer stays at least ten seconds after clicking. This replaces the old model where any click counted equally. The mechanism: a viewer who clicks a link and bounces after four seconds fires nothing; one who stays eleven seconds fires the head. This aligns with the August 25 binary dwell change—X is systematically rewarding attention duration over passive actions. The platform wants engagement that holds people on-platform or demonstrates genuine interest, not reflexive taps.",
+    "move": "If you share links, write captions that make people want to stay and discuss rather than immediately clicking through. Test posting the link in a reply instead of the main post so the click-through doesn't kill the parent post's distribution.",
+    "sources": [
+      {
+        "title": "KeywordsEverywhere",
+        "url": "https://keywordseverywhere.com/news/social-algorithm-updates/"
+      }
+    ],
+    "trust": 2
+  },
+  {
+    "id": "x-s-phoenix-aggregation-switched-from-short-dwell-to-long-dw",
+    "discovered": "2026-09-28",
+    "headline": "X's Phoenix aggregation switched from short dwell to long dwell as the default",
+    "platform": "X",
+    "lane": "Platform",
+    "stat": "aggregation default changed from short dwell to long dwell",
+    "statContext": "X's Phoenix ranking system configuration change, affects how dwell time signals are processed",
+    "obvious": "semi",
+    "why": "The Phoenix aggregation setting controls how dwell signals are rolled up across a user's session. Switching the default from short to long dwell means the ranker now prioritizes sustained attention over quick glances. This is the third dwell-related change in the same update (binary dwell turned on, dwell weight raised to 0.05, and now this aggregation switch). The pattern is clear: X is systematically retuning every part of the ranking system that touches attention duration. Long dwell likely means they're measuring across a longer time window or weighting later seconds more heavily than the…",
+    "move": "Optimize the first thirty seconds to hold attention, not just the first three. If you make threads, make the second and third posts worth reading—X may now be crediting you for keeping someone in the thread longer.",
+    "sources": [
+      {
+        "title": "KeywordsEverywhere",
+        "url": "https://keywordseverywhere.com/news/social-algorithm-updates/"
+      }
+    ],
+    "trust": 2
+  },
+  {
+    "id": "x-weights-scale-predicted-probabilities-not-raw-counts-one-r",
+    "discovered": "2026-09-28",
+    "headline": "X weights scale predicted probabilities not raw counts, one report does not cancel hundreds of likes",
+    "platform": "X",
+    "lane": "Platform",
+    "stat": "weights multiply the viewer's own predicted probability of each action",
+    "statContext": "Explanation of how X's ranking weights work in the open-source code, clarifies common misconception",
+    "obvious": "surprising",
+    "why": "The ranking weights people see in X's code—like report at -1.5 and like at 0.5—do not mean one report literally cancels three likes. They scale the predicted probability that this specific viewer will take that action, which is calculated from the viewer's own past behavior. A viewer who never reports anything has a near-zero report probability, so even a high negative weight barely moves their score. This matters because it means controversial posts that get both loves and hates are not simply averaged—the system predicts whether you personally will like or report it based on your history…",
+    "move": "Stop worrying about getting reported by people who were never going to engage positively. Focus on creating content that your actual audience—the people whose behavior predicts they will engage—wants to see. Polarization is not inherently penalized if the right half loves it.",
+    "sources": [
+      {
+        "title": "PyShrine",
+        "url": "https://pyshine.com/X-Algorithm-For-You-Feed-xAI/"
+      }
+    ],
+    "trust": 2
+  },
+  {
+    "id": "tiktok-judges-each-video-independently-same-account-s-best-a",
+    "discovered": "2026-09-28",
+    "headline": "TikTok judges each video independently; same account's best and worst posts differ massively in reach",
+    "platform": "TikTok",
+    "lane": "Platform",
+    "stat": "58 creators' best vs worst recent posts showed wide variance within same account",
+    "statContext": "September 2026 sample via TokConnect of ten recent posts each across six niches",
+    "obvious": "semi",
+    "why": "If TikTok's algorithm penalized or boosted at the account level, one creator's videos would cluster around a similar view count. They do not. The same account can have one video hit 500K and the next hit 8K. This confirms what TikTok has said but creators often doubt: the algorithm does not remember your last video's performance when ranking the new one. Each video enters the same cold-start test regardless of whether your previous post flopped or went viral. The mechanism is economic—TikTok wants to fill the For You feed with the best content right now, and past performance is a weak…",
+    "move": "Do not let a low-performing video discourage you from posting the next one. Each video gets a fair shot. Test more concepts rather than trying to reverse-engineer why the last one failed—the algorithm does not care about your last one.",
+    "sources": [
+      {
+        "title": "TokConnect",
+        "url": "https://tokconnect.com/guides/how-the-tiktok-algorithm-works/"
+      }
+    ],
+    "trust": 2
+  },
+  {
     "id": "x-raised-video-open-weight-and-turned-on-binary-dwell-while-",
     "discovered": "2026-09-25",
     "headline": "X raised video-open weight and turned on binary dwell while killing quality-view finish bonus",
