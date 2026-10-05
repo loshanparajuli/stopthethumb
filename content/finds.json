@@ -1,5 +1,93 @@
 [
   {
+    "id": "youtube-shorts-dropped-minimum-watch-requirement-for-view-co",
+    "discovered": "2026-10-05",
+    "headline": "YouTube Shorts dropped minimum watch requirement for view counting in March 2025",
+    "platform": "YouTube Shorts",
+    "lane": "Platform",
+    "stat": "views count from first play, no minimum watch time",
+    "statContext": "all Shorts views since March 2025, down from previous threshold",
+    "obvious": "known",
+    "why": "YouTube removed the watch-time floor that separated a counted view from a skip. This aligns Shorts counting with TikTok and Instagram, where a view fires immediately. The change makes vanity metrics rise but does not affect ranking—YouTube still weights satisfaction surveys and retention for recommendations. The timing matters because it preceded the August 24 threshold drop across all formats and the October 1 originality update, suggesting YouTube was systematically simplifying its counting rules before tightening quality filters.",
+    "move": "Stop using raw view counts as a success signal for Shorts. Track click-through from impressions and average watch percentage instead, since those still predict whether YouTube promotes the video.",
+    "sources": [
+      {
+        "title": "TechCrunch",
+        "url": "https://techcrunch.com/"
+      },
+      {
+        "title": "OutlierKit",
+        "url": "https://outlierkit.com/resources/youtube-shorts-algorithm/"
+      }
+    ],
+    "trust": 3
+  },
+  {
+    "id": "youtube-began-ranking-original-shorts-higher-and-suppressing",
+    "discovered": "2026-10-05",
+    "headline": "YouTube began ranking original Shorts higher and suppressing re-uploads on October 1",
+    "platform": "YouTube Shorts",
+    "lane": "Platform",
+    "stat": "original content prioritised, re-uploads without added value get less reach",
+    "statContext": "YouTube Shorts feed recommendations starting October 1, 2026",
+    "obvious": "semi",
+    "why": "YouTube updated its recommendation systems to 'further prioritize original content and reduce the reach of content re-uploaded from other creators without adding anything of your own'. The mechanism is a new originality classifier in the ranker, not just duplicate detection—YouTube is judging whether you added creative value. This follows the March view-counting change and suggests YouTube is fighting the TikTok repost farms that flooded Shorts after monetisation opened. The move was predictable (every platform eventually does this) but the timing—right before the February 2027 revenue…",
+    "move": "If you remix or compile others' clips, add substantive commentary, new editing or a unique angle. If you cannot add value, do not post it. Check your Shorts feed impressions in Analytics after October 1—a drop with stable CTR and retention means you were flagged.",
+    "sources": [
+      {
+        "title": "YouTube Help",
+        "url": "https://support.google.com/"
+      },
+      {
+        "title": "Thumblore",
+        "url": "https://www.thumblore.com/blogs/youtube-shorts-original-content-update"
+      }
+    ],
+    "trust": 3
+  },
+  {
+    "id": "x-s-video-open-weight-rose-from-0-05-to-0-07-while-video-qua",
+    "discovered": "2026-10-05",
+    "headline": "X's video-open weight rose from 0.05 to 0.07 while video quality view dropped to zero",
+    "platform": "X",
+    "lane": "Platform",
+    "stat": "video_open weight 0.05 to 0.07, vqv weight 0.05 to 0.0",
+    "statContext": "X's Phoenix ranking model default weights, commit on August 25, 2026",
+    "obvious": "surprising",
+    "why": "X simultaneously raised the credit for opening a video player and eliminated the bonus for watching to a quality threshold. The mechanism: X is rewarding the click more than the finish, which inverts typical short-form logic. This pairs with the binary dwell change (also August 25)—X now pays for initial interest (the open) and sustained attention (10-second dwell), but not for passive completion. The likely reason: completion is too easy to game with ultra-short clips, while open+dwell together signal real intent. The move contradicts creator advice to 'just make them watch to the end'.",
+    "move": "For video on X: optimise your thumbnail and first frame to drive the open, then script the first ten seconds to hold attention through the dwell threshold. Stop worrying about finishing the clip—there is no ranking credit for it anymore.",
+    "sources": [
+      {
+        "title": "X Phoenix repository",
+        "url": "https://github.com/twitter/the-algorithm"
+      },
+      {
+        "title": "Ryan Lenk",
+        "url": "https://www.ryanlenk.com/blogs/articles/x-changed-three-ranking-weights"
+      }
+    ],
+    "trust": 3
+  },
+  {
+    "id": "x-accounts-posting-over-10-times-daily-see-roughly-14-lower-",
+    "discovered": "2026-10-05",
+    "headline": "X accounts posting over 10 times daily see roughly 14% lower engagement per post",
+    "platform": "X",
+    "lane": "Receipts",
+    "stat": "14% lower engagement per post above 10 posts/day",
+    "statContext": "brand accounts in one third-party posting-frequency analysis, date not specified",
+    "obvious": "semi",
+    "why": "This is audience fatigue, not an algorithmic penalty. The same follower base cannot engage with every post when volume is high, so each additional post past the ceiling returns less. The mechanism: your followers' feeds fill with your content, they skip more of it, and the ranker sees lower predicted engagement on each piece. The finding contradicts 'post as much as possible' advice but aligns with X's reply/retweet-heavy ranking—conversations need time to develop. The source is thin (one unnamed analysis, no date, no methodology), so treat this as a rough benchmark, not a law.",
+    "move": "If you post more than 10 times a day, audit whether each post is genuinely earning replies and shares. If engagement per post is dropping, cut frequency and raise quality—fewer posts that spark conversation will outrank more posts that get passive likes.",
+    "sources": [
+      {
+        "title": "TimeToPost",
+        "url": "https://timetopost.co/blog/how-often-to-post-2026/"
+      }
+    ],
+    "trust": 1
+  },
+  {
     "id": "x-s-ranker-now-rewards-ten-second-click-dwell-instead-of-pas",
     "discovered": "2026-09-28",
     "headline": "X's ranker now rewards ten-second click-dwell instead of passive impressions",
