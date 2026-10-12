@@ -1,5 +1,89 @@
 [
   {
+    "id": "x-s-ranker-raised-not-interested-penalty-from-86-likes-to-95",
+    "discovered": "2026-10-12",
+    "headline": "X's ranker raised not-interested penalty from 86 likes to 95 and cut bare-tap weight by a third",
+    "platform": "X",
+    "lane": "Platform",
+    "stat": "not-interested went from -43.2 to -47.52, tap-in dropped from 0.4 to 0.3",
+    "statContext": "weight changes in X's open-source ranking code committed September 29, 2026",
+    "obvious": "surprising",
+    "why": "X is distinguishing between passive taps and genuine engagement. A tap that holds attention for 10+ seconds now counts (0.4 weight, newly added), making the total tap-plus-dwell worth 0.7 of a like instead of the old bare-tap value of 0.8. Meanwhile the not-interested penalty grew about 10%, meaning one negative signal now cancels roughly 95 likes instead of 86. The platform is steering away from click-bait taps toward posts that actually hold readers, and it is making content suppression more aggressive when users explicitly reject something.",
+    "move": "Write hooks that reward the second read, not just the tap. The first line must earn the next ten seconds. Test whether your post holds attention in replies or quote discussion, not just whether it got opened. One not-interested costs you nearly a hundred likes now, so avoid anything that looks like spam or rage-bait to even a small share of viewers.",
+    "sources": [
+      {
+        "title": "X Algorithm Repository",
+        "url": "https://github.com/xai-org/x-algorithm/commit/a707cc2"
+      }
+    ],
+    "trust": 3
+  },
+  {
+    "id": "youtube-shorts-views-now-count-from-first-frame-engagement-v",
+    "discovered": "2026-10-12",
+    "headline": "YouTube Shorts views now count from first frame, engagement views exclude loops for revenue",
+    "platform": "YouTube Shorts",
+    "lane": "Receipts",
+    "stat": "views count from frame one as of August 24, 2026; engaged views exclude replays",
+    "statContext": "view-counting rule change affecting all YouTube formats and Shorts revenue calculation",
+    "obvious": "semi",
+    "why": "YouTube unified view counting across all formats on August 24, 2026: every play registers immediately with no minimum watch threshold. Shorts had already dropped the watch-time floor in March 2025, but this extended it platform-wide. The change separates vanity metrics from money: total views include loops and instant skips, but engaged views—the metric YouTube pays on and uses for Partner Program eligibility—count only viewers who stayed past the first seconds and exclude replays. YouTube defines engaged view as clicking to watch or watching past initial seconds. This means loop-optimized…",
+    "move": "Stop designing Shorts around loops. They pad your view count but do not increase revenue or help you qualify for monetization. Focus on hooks that keep first-time viewers past the opening seconds, since that is what engaged views measure. Check your Average Percentage Viewed in Studio under Shorts analytics—it is calculated only from engaged views, so it shows whether your hook and pacing…",
+    "sources": [
+      {
+        "title": "YouTube Help",
+        "url": "https://support.google.com/youtube/answer/9314515"
+      },
+      {
+        "title": "OutlierKit Resources",
+        "url": "https://outlierkit.com/resources/youtube-shorts-algorithm/"
+      }
+    ],
+    "trust": 3
+  },
+  {
+    "id": "tiktok-videos-of-3-to-10-minutes-get-1-54x-the-views-of-10-t",
+    "discovered": "2026-10-12",
+    "headline": "TikTok videos of 3 to 10 minutes get 1.54x the views of 10-to-20 second clips from same creator",
+    "platform": "TikTok",
+    "lane": "Build",
+    "stat": "3-10 minute videos averaged 1.54x views, photo posts 0.81x, versus the same creator's 10-20 second videos",
+    "statContext": "3.2 million TikTok videos from 49,357 creators with 1,000+ followers, posted August 19 to September 2026",
+    "obvious": "surprising",
+    "why": "TikTok's algorithm appears to reward longer content that holds attention, contradicting the common advice to keep everything under 30 seconds. The dataset compared each creator's videos against their own other videos from the same month, isolating format effects from audience differences. Videos in the 3-10 minute range significantly outperformed short clips, while photo carousels underperformed at 0.81x. The likely mechanism: TikTok's ranking heavily weights watch time and completion rate, and a longer video that keeps even 40% of viewers delivers more absolute watch seconds than a 15-second…",
+    "move": "Test videos in the 2-5 minute range if your content can sustain attention that long. Plan a narrative arc with multiple peaks instead of a single hook-payoff structure. Monitor your average watch time in TikTok Studio, not just completion rate—a 4-minute video watched halfway through delivers more ranking signal than a 20-second video watched fully. This does not mean pad everything; it means use…",
+    "sources": [
+      {
+        "title": "virev blog",
+        "url": "https://virev.ai/blog/tiktok-algorithm"
+      }
+    ],
+    "trust": 2
+  },
+  {
+    "id": "instagram-reels-ranker-predicts-resharing-slightly-more-heav",
+    "discovered": "2026-10-12",
+    "headline": "Instagram Reels ranker predicts resharing slightly more heavily for viewers who do not follow you",
+    "platform": "Instagram Reels",
+    "lane": "Platform",
+    "stat": "resharing weighted slightly more important for unconnected content than for followers",
+    "statContext": "Instagram head Adam Mosseri statement January 2025, confirmed in Meta system card 2026",
+    "obvious": "semi",
+    "why": "Instagram uses two different weighting schemes depending on whether the viewer follows you. For followers, the ranking predictions are roughly balanced across watch time, likes, and sends. For non-followers—the audience that determines whether a Reel breaks out beyond your base—resharing (sends via DM) gets weighted slightly higher. Meta's 2026 system card phrases it as predicting whether you will reshare or share, and Mosseri explicitly said sends are slightly more important for unconnected content. The mechanism: Instagram wants to surface Reels that people actively pass along to friends…",
+    "move": "Write Reels that give viewers a reason to send them to a specific person. Test whether your hook or concept creates a this-is-you moment or solves a problem someone would DM to a friend. Check your sends-per-reach in Instagram Insights under Interactions—it is the signal Instagram weights most for expanding beyond your follower base. A Reel that gets shared travels faster than one that just gets…",
+    "sources": [
+      {
+        "title": "iimagined.ai blog",
+        "url": "https://iimagined.ai/blog/instagram-reels-algorithm"
+      },
+      {
+        "title": "virev blog",
+        "url": "https://virev.ai/blog/instagram-algorithm"
+      }
+    ],
+    "trust": 2
+  },
+  {
     "id": "youtube-shorts-dropped-minimum-watch-requirement-for-view-co",
     "discovered": "2026-10-05",
     "headline": "YouTube Shorts dropped minimum watch requirement for view counting in March 2025",
