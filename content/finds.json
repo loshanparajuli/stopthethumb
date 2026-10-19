@@ -1,5 +1,89 @@
 [
   {
+    "id": "x-algorithm-dedupes-video-carousel-by-creator-and-semantic-i",
+    "discovered": "2026-10-19",
+    "headline": "X algorithm dedupes video carousel by creator and semantic ID",
+    "platform": "X",
+    "lane": "Platform",
+    "stat": "video carousel author dedupe on, semantic-ID dedupe level 0 to 3",
+    "statContext": "default config changes in commit 862a123 pushed Oct 17, 2026 02:44 Berlin time",
+    "obvious": "surprising",
+    "why": "X wants one strong clip per creator instead of carousel flooding. The author dedupe stops multiple videos from the same account stacking in 'Videos for you'. The semantic-ID dedupe collapses near-duplicate and look-alike clips even from different accounts. Both changes punish reposting and reward original content. A test called ZeroFavCodivert also starts gating which brand-new, zero-like posts get initial reach, though it is off by default. The carousel also drops entirely if a 'Who to follow' module appears in the same response.",
+    "move": "Post one strong original vertical clip instead of flooding the carousel with copies or slight variants. If you have been reposting the same clip multiple times, stop: the dedupe will collapse them and you will lose carousel slots.",
+    "sources": [
+      {
+        "title": "Data Empower",
+        "url": "https://dataempower.net/hot-news/x-algorithm-video-carousel-dedupe-oct-2026/"
+      }
+    ],
+    "trust": 2
+  },
+  {
+    "id": "youtube-shorts-suppresses-channels-that-mostly-repost-other-",
+    "discovered": "2026-10-19",
+    "headline": "YouTube Shorts suppresses channels that mostly repost other creators' clips",
+    "platform": "YouTube Shorts",
+    "lane": "Receipts",
+    "stat": "channels mostly re-uploading others' videos get less Shorts feed distribution",
+    "statContext": "YouTube statement to creators Oct 2026, applies to vertical swipe feed reach",
+    "obvious": "semi",
+    "why": "YouTube already blocked monetization from re-uploaded Shorts views before Oct 1. Now re-uploads also cost organic reach in the Shorts feed. The platform wants to push original content and stop creators from building channels on compilations or reuploads without significant transformation. YouTube did not publish a start date, a threshold for how much change counts as original, or a Studio metric showing whether your reach was cut. A channel that shifts to original content gets re-evaluated, but the timeline is unclear. The reach penalty applies at the channel level, like the monetization rule.",
+    "move": "Audit your Shorts library this week. If most of your uploads are clips you collected or lightly edited from other creators, shift to original shoots or add substantial commentary and transformation. YouTube is vague about the line, so err toward more original work.",
+    "sources": [
+      {
+        "title": "TeamYouTube",
+        "url": "https://thisweekinsocialmedia.com/p/youtube-shorts-reposted-clips-reach"
+      },
+      {
+        "title": "YouTube Help: Shorts monetization",
+        "url": "https://thisweekinsocialmedia.com/p/youtube-shorts-reposted-clips-reach"
+      },
+      {
+        "title": "YouTube Help: Channel monetization",
+        "url": "https://thisweekinsocialmedia.com/p/youtube-shorts-reposted-clips-reach"
+      }
+    ],
+    "trust": 3
+  },
+  {
+    "id": "x-drops-video-quality-view-weight-to-zero-raises-dwell-weigh",
+    "discovered": "2026-10-19",
+    "headline": "X drops video quality view weight to zero, raises dwell weight to 0.05",
+    "platform": "X",
+    "lane": "Platform",
+    "stat": "video quality view weight 0.05 to 0.0, dwell weight 0.0 to 0.05",
+    "statContext": "ranking weight defaults in X's open-source code, commit Aug 25, 2026, still 0.0 on Oct 4",
+    "obvious": "surprising",
+    "why": "X's ranker predicts whether a viewer will give a video a quality view (watch past some threshold), then multiplies that probability by the VQV weight. Dropping the weight to zero means finishing a video no longer directly helps its For You score. At the same time, the dwell weight (stopping on the post without a specific action) went from zero to 0.05. X also restricts VQV credit to videos longer than 10 seconds, so a 9-second clip could never earn it even if the weight returned. The shift suggests X cares more about stopping the scroll than completing the watch. A clip climbs For You when…",
+    "move": "Design your clips to stop the thumb in the first two seconds, not to hold to the end. A 15-second clip that gets shared beats a 90-second clip people finish but never send. Front-load the payoff and the share trigger. The platform is telling you retention is not the goal anymore.",
+    "sources": [
+      {
+        "title": "xai-org/x-algorithm repository",
+        "url": "https://fastclips.app/learn/x-ranking-weights"
+      }
+    ],
+    "trust": 3
+  },
+  {
+    "id": "instagram-reels-under-3-minutes-get-same-views-over-3-minute",
+    "discovered": "2026-10-19",
+    "headline": "Instagram Reels under 3 minutes get same views; over 3 minutes lose 40%",
+    "platform": "Instagram Reels",
+    "lane": "Receipts",
+    "stat": "Reels over 3 minutes got 40% fewer views than shorter Reels",
+    "statContext": "study of over 7,200 Reels by Sociable AI, date of sample not disclosed",
+    "obvious": "semi",
+    "why": "Instagram's Reels ranker calculates a relevance score for about 100 candidates every time someone opens Reels, then shows them in order. Two signals are how many users watched at least 3 seconds and how many skipped within 2 seconds. The 3-minute threshold likely reflects where Instagram's system predicts lower completion or higher skip rates. Reels from 15 seconds to 3 minutes performed about the same on views. Longer Reels did earn more comments per view: 2-to-3-minute Reels got 65% more comments per view than 15-to-30-second Reels, suggesting they attract more invested viewers even if they…",
+    "move": "If you want reach, keep Reels under 3 minutes. If you want deeper engagement and can accept lower view counts, try 2-to-3-minute pieces. Do not go over 3 minutes unless comments matter more than impressions for your goal this month.",
+    "sources": [
+      {
+        "title": "Sociable AI Blog",
+        "url": "https://www.sociable.how/blog/what-makes-a-video-viral"
+      }
+    ],
+    "trust": 2
+  },
+  {
     "id": "x-s-ranker-raised-not-interested-penalty-from-86-likes-to-95",
     "discovered": "2026-10-12",
     "headline": "X's ranker raised not-interested penalty from 86 likes to 95 and cut bare-tap weight by a third",
