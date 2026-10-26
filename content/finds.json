@@ -1,5 +1,81 @@
 [
   {
+    "id": "x-s-new-ai-ranking-model-predicts-time-spent-instead-of-enga",
+    "discovered": "2026-10-26",
+    "headline": "X's new AI ranking model predicts time-spent instead of engagement actions",
+    "platform": "X",
+    "lane": "Platform",
+    "stat": "ranker switched to time-spent prediction",
+    "statContext": "the new retrieval and ranking model deployed in October 2026, no sample size disclosed",
+    "obvious": "surprising",
+    "why": "X's head of engineering said the new model predicts 'probable time spent' rather than discrete actions like likes or shares. The shift moves ranking away from countable engagement toward attention, meaning a clip that holds viewers without prompting a share could now rank higher than one that gets quick likes. The post did not define 'SI' in 'AI/SI model' or give precision numbers, so the degree of change is unclear. This contradicts the August weight file where shares had 40x the weight of dwell.",
+    "move": "Test clips that maximize watch time without a call to action, and measure whether reach changes compared to your usual share-optimized hooks. If time-spent truly dominates now, a self-contained story that people watch through beats a cliffhanger that prompts a quick share.",
+    "sources": [
+      {
+        "title": "explainx.ai",
+        "url": "https://explainx.ai/blog/x-new-ai-ranking-retrieval-model-time-spent-user-active-seconds-2026"
+      }
+    ],
+    "trust": 1
+  },
+  {
+    "id": "youtube-expanded-a-b-testing-beyond-thumbnails-to-entire-vid",
+    "discovered": "2026-10-26",
+    "headline": "YouTube expanded A/B testing beyond thumbnails to entire video cuts and opening hooks",
+    "platform": "YouTube Shorts",
+    "lane": "Platform",
+    "stat": "native A/B testing now covers full video cuts",
+    "statContext": "YouTube's new testing infrastructure announced in research summary dated October 2026",
+    "obvious": "surprising",
+    "why": "YouTube previously let creators test titles and thumbnails but not the video itself. The platform now runs native tests on different cuts and opening hooks, optimizing for watch time share and viewer retention rather than just clicks. This means YouTube is acknowledging that the first few seconds determine whether the algorithm spreads a Short, and it is giving creators the tooling to iterate on hooks at the platform level instead of guessing from aggregate analytics.",
+    "move": "If you have YouTube Studio access, test two versions of your next Short with different opening lines or B-roll in the first three seconds, and let YouTube measure which one holds viewers longer. Use retention curves to find the exact drop-off point.",
+    "sources": [
+      {
+        "title": "hfsresearch.com",
+        "url": "https://www.hfsresearch.com/quicktakes/bet-on-retention-over-distribution-youtube-validated-our-microdrama-hypothesis/"
+      }
+    ],
+    "trust": 2
+  },
+  {
+    "id": "instagram-third-or-later-reposts-of-same-clip-hit-1-000-view",
+    "discovered": "2026-10-26",
+    "headline": "Instagram third or later reposts of same clip hit 1,000 views zero times in 205-post sample",
+    "platform": "Instagram Reels",
+    "lane": "Receipts",
+    "stat": "0% hit rate for 3rd+ posts versus 6% for first posts",
+    "statContext": "205 third-or-later Instagram reposts of the same source clip, posted Sept 28 to Oct 22, 2026, compared to 386 first posts",
+    "obvious": "semi",
+    "why": "Instagram appears to fingerprint content and suppress clips it has already distributed, even if posted weeks apart by the same account. First posts of a clip zeroed 3% of the time, second posts 20%, and third or later posts hit 1,000 views zero times. The pattern did not hold on YouTube Shorts where third-to-fifth reposts still hit 1,000 views half the time. The mechanism is likely content-ID matching rather than a time penalty, since fresh debates from the same creator still performed. This confirms Instagram penalizes repeats more aggressively than other platforms.",
+    "move": "Cap Instagram at two posts per source clip. If a debate or interview segment has already gone out twice on Instagram, hold it and post something from a different recording instead. Track which clips are repeats in your upload sheet so you see the empty slot rather than wondering why a post died.",
+    "sources": [
+      {
+        "title": "dev.to",
+        "url": "https://dev.to/runfoundry/we-tested-13-variables-on-1398-short-videos-the-one-that-zeroed-our-instagram-reach-was-the-1j0e"
+      }
+    ],
+    "trust": 2
+  },
+  {
+    "id": "youtube-introduced-dedicated-shorts-series-infrastructure-fo",
+    "discovered": "2026-10-26",
+    "headline": "YouTube introduced dedicated Shorts Series infrastructure for organizing vertical videos into seasons",
+    "platform": "YouTube Shorts",
+    "lane": "Platform",
+    "stat": "new Shorts Series product launched",
+    "statContext": "YouTube product announcement covered in October 2026 research summary",
+    "obvious": "surprising",
+    "why": "YouTube added native support for creators to organize Shorts into connected, bingeable series with season structure. This is YouTube validating the microdrama format where viewers watch multiple related Shorts in sequence, and it suggests the platform will start recommending the next Short in a series more aggressively than unrelated clips. The move signals YouTube is competing with TikTok's episodic content and wants to keep viewers in one creator's catalog rather than bouncing across the platform.",
+    "move": "If you are cutting a long podcast into multiple Shorts, structure them as an explicit series in YouTube Studio instead of uploading them as unrelated clips. Test whether later episodes in a series get a reach boost from viewers finishing the first one.",
+    "sources": [
+      {
+        "title": "hfsresearch.com",
+        "url": "https://www.hfsresearch.com/quicktakes/bet-on-retention-over-distribution-youtube-validated-our-microdrama-hypothesis/"
+      }
+    ],
+    "trust": 2
+  },
+  {
     "id": "x-algorithm-dedupes-video-carousel-by-creator-and-semantic-i",
     "discovered": "2026-10-19",
     "headline": "X algorithm dedupes video carousel by creator and semantic ID",
