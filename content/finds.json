@@ -1,5 +1,81 @@
 [
   {
+    "id": "x-switched-default-ad-blending-from-multi-risk-to-slot-sprea",
+    "discovered": "2026-11-02",
+    "headline": "X switched default ad blending from multi_risk to slot_spread on October 31",
+    "platform": "X",
+    "lane": "Platform",
+    "stat": "ads blender changed from multi_risk to slot_spread",
+    "statContext": "default configuration parameter in X's published algorithm code on October 31, 2026",
+    "obvious": "surprising",
+    "why": "The published code diff shows X changed how it interleaves ads into the For You feed. The multi_risk blender previously distributed ads based on engagement risk scoring; slot_spread appears to distribute ads at fixed positions regardless of content risk. This likely means ads now appear at predetermined scroll positions rather than being inserted where they fit the engagement pattern. The change suggests X is prioritizing ad visibility and revenue predictability over user experience optimization. However, the RAMGPT audit explicitly notes this is a default parameter change in the mirrored…",
+    "move": "Test whether your organic posts see different reach patterns around typical ad positions. If slot_spread is live, high-engagement posts might now sit adjacent to ads more often, potentially benefiting from spillover attention or suffering from ad fatigue.",
+    "sources": [
+      {
+        "title": "ramgpt.org",
+        "url": "https://ramgpt.org/articles/x-algorithm-october-31-ad-slot-spread-video-risk-code-audit/"
+      }
+    ],
+    "trust": 2
+  },
+  {
+    "id": "x-turned-on-high-risk-video-carousel-filtering-by-default-on",
+    "discovered": "2026-11-02",
+    "headline": "X turned on high-risk video carousel filtering by default on October 31",
+    "platform": "X",
+    "lane": "Clips",
+    "stat": "EnableVideoCarouselHighRiskFilter flag changed from false to true",
+    "statContext": "default setting in X's published algorithm source code as of October 31, 2026",
+    "obvious": "surprising",
+    "why": "X's algorithm now filters out high-risk videos from appearing in the video carousel feed by default. The flag name suggests X is applying a safety or quality filter to prevent problematic video content from surfacing in a dedicated video browsing experience. This is separate from the main For You feed. The mechanism likely works by flagging videos that trigger spam, harassment, or misinformation classifiers, then excluding them from the carousel. Since this is a new default, it means X is tightening video distribution for content it considers risky, even if that content isn't removed…",
+    "move": "If you post video on X and notice carousel reach dropping while For You reach holds steady, audit your content against X's safety policies. Avoid borderline topics, unverified claims, or engagement bait that might trigger risk classifiers.",
+    "sources": [
+      {
+        "title": "ramgpt.org",
+        "url": "https://ramgpt.org/articles/x-algorithm-october-31-ad-slot-spread-video-risk-code-audit/"
+      }
+    ],
+    "trust": 2
+  },
+  {
+    "id": "x-launched-invite-only-video-kickstart-bonus-paying-creators",
+    "discovered": "2026-11-02",
+    "headline": "X launched invite-only Video Kickstart Bonus paying creators for 15 vertical videos monthly",
+    "platform": "X",
+    "lane": "Receipts",
+    "stat": "15 qualifying videos on 15 different days earns a monthly bonus",
+    "statContext": "new invite-only pilot program announced by X in late October 2026",
+    "obvious": "semi",
+    "why": "X is directly paying select creators to post original vertical video under three minutes, posted one per day for 15 days each program period of roughly one month. This is X's attempt to compete with TikTok and Instagram Reels for short-form video talent by offering guaranteed cash rather than ad revenue share. The invite-only structure means X is hand-picking creators it wants on the platform. The vertical-only requirement and three-minute cap signal X wants to establish a native short-form video culture, not just host YouTube or TikTok exports. Creators can repost their own videos from other…",
+    "move": "If you get invited, post your best-performing Reels and TikToks to X as well. The requirement is 15 videos on 15 different days, not 15 unique videos, so you can republish. Track whether X distribution improves for paid program participants versus organic-only accounts.",
+    "sources": [
+      {
+        "title": "tech.yahoo.com",
+        "url": "https://tech.yahoo.com/social-media/articles/x-launches-bonus-program-video-223737526.html"
+      }
+    ],
+    "trust": 3
+  },
+  {
+    "id": "youtube-shorts-videos-losing-viewers-at-10-20-runtime-got-39",
+    "discovered": "2026-11-02",
+    "headline": "YouTube Shorts videos losing viewers at 10-20% runtime got 39% fewer views on promise channels",
+    "platform": "YouTube Shorts",
+    "lane": "Clips",
+    "stat": "39% fewer views per day",
+    "statContext": "2,597 Shorts from 11 channels measured October 2026, controlling for length and average retention",
+    "obvious": "surprising",
+    "why": "On channels that open with a promise to answer a question or close an information gap, losing viewers between 10-20% of the video's runtime was associated with significantly worse distribution. The mechanism: YouTube's algorithm likely interprets early dropoff after the hook as a sign the video failed to deliver on its opening promise, and suppresses it accordingly. Losing people in the first 10% was surprisingly associated with more views, possibly because those viewers were never going to watch anyway and their quick exit didn't count against the video. The 10-20% window is where promise…",
+    "move": "On promise-driven Shorts, measure where your dropoff happens frame-by-frame. If you're bleeding viewers between 10-20%, your payoff likely lands too late or disappoints. Test moving your biggest reveal or answer forward to the 5-10% mark instead of after the hook.",
+    "sources": [
+      {
+        "title": "doi.org",
+        "url": "https://doi.org/10.31235/osf.io/c2evy_v1"
+      }
+    ],
+    "trust": 3
+  },
+  {
     "id": "x-s-new-ai-ranking-model-predicts-time-spent-instead-of-enga",
     "discovered": "2026-10-26",
     "headline": "X's new AI ranking model predicts time-spent instead of engagement actions",
